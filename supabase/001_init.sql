@@ -1,6 +1,5 @@
 create schema if not exists soulmayte;
 
-grant usage on schema soulmayte to anon, authenticated, service_role;
 
 create extension if not exists pgcrypto;
 
@@ -69,8 +68,8 @@ create table if not exists soulmayte.soulmate_readiness_quiz_submissions (
   notes text
 );
 
-alter table soulmayte.waitlist_entries enable row level security;
-alter table soulmayte.soulmate_readiness_quiz_submissions enable row level security;
+ALTER TABLE soulmayte.waitlist_entries ENABLE ROW LEVEL SECURITY;
+ALTER TABLE soulmayte.soulmate_readiness_quiz_submissions ENABLE ROW LEVEL SECURITY;
 
 drop policy if exists "public can insert waitlist entries" on soulmayte.waitlist_entries;
 create policy "public can insert waitlist entries"
@@ -102,9 +101,6 @@ to service_role
 using (true)
 with check (true);
 
-grant usage on schema soulmayte to anon, authenticated, service_role;
-grant all on all tables in schema soulmayte to anon, authenticated, service_role;
-grant all on all sequences in schema soulmayte to anon, authenticated, service_role;
 create table if not exists soulmayte.profiles (
   id uuid references auth.users(id) on delete cascade primary key,
   created_at timestamptz not null default now(),
