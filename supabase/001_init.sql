@@ -1,4 +1,5 @@
 create schema if not exists soulmayte;
+GRANT USAGE ON SCHEMA soulmayte TO anon, authenticated, service_role;
 
 
 create extension if not exists pgcrypto;
@@ -102,9 +103,10 @@ using (true)
 with check (true);
 
 create table if not exists soulmayte.profiles (
-  id uuid references auth.users(id) on delete cascade primary key,
+  id uuid references auth.users(id) on delete cascade primary key REFERENCES soulmayte.profiles(id),
   created_at timestamptz not null default now(),
-  email text not null unique,
+  email text not null,
+  CONSTRAINT profiles_email_key UNIQUE (lower(email)),
   full_name text,
   city text,
   state text,
@@ -115,7 +117,7 @@ create table if not exists soulmayte.profiles (
 create table if not exists soulmayte.partner_profiles (
   id uuid primary key default gen_random_uuid(),
   created_at timestamptz not null default now(),
-  owner_user_id uuid not null references auth.users(id) on delete cascade,
+  owner_user_id uuid not null references auth.users(id) on delete cascade REFERENCES soulmayte.profiles(id),
   partner_name text not null,
   notes text,
   relationship_stage text
