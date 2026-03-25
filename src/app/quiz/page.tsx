@@ -1,14 +1,18 @@
+export const dynamic = 'force-dynamic';
+
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { Metadata } from "next";
 import Link from "next/link";
 import { QuizForm } from "@/components/quiz-form";
+import { hasValidSupabaseEnv } from "@/lib/env";
 
 export const metadata: Metadata = {
   title: "Soulmate Readiness Quiz | SoulMayte",
 };
 
 export default async function QuizPage() {
-  const supabase = createServerSupabaseClient();
+  const hasValidEnv = hasValidSupabaseEnv();
+  const supabase = hasValidEnv ? createServerSupabaseClient() : null;
 
   return (
     <main className="min-h-screen bg-[#050816] px-6 py-12 text-white">
@@ -30,7 +34,18 @@ export default async function QuizPage() {
         </div>
 
         <div className="rounded-3xl border border-white/10 bg-white/5 p-6 shadow-xl">
-          <QuizForm />
+          {hasValidEnv ? (
+            <QuizForm />
+          ) : (
+            <div className="space-y-4 text-center">
+              <h3 className="text-lg font-medium text-pink-300">
+                Loading Quiz...
+              </h3>
+              <p className="text-white/75">
+                We're preparing your personalized readiness assessment
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </main>
