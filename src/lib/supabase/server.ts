@@ -7,7 +7,7 @@ export function createServerSupabaseClient() {
     env.NEXT_PUBLIC_SUPABASE_URL,
     env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     {
-      db: { schema: env.NEXT_PUBLIC_SUPABASE_SCHEMA },
+      db: { schema: "soulmayte" },
     }
-  );
+  ).withSchema("soulmayte");
 }

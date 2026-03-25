@@ -14,7 +14,18 @@ export async function POST(request: Request) {
 
     const supabase = createServerSupabaseClient();
 
-    const { error } = await supabase.from("waitlist_entries").insert({
+    const payload: Database["soulmayte"]["Tables"]["waitlist_entries"]["Insert"] = {
+      email: body.email,
+      full_name: body.fullName || null,
+      city: body.city || null,
+      state: body.state || null,
+      relationship_status: body.relationshipStatus || null,
+      looking_for: body.lookingFor || null,
+      notes: body.notes || null,
+      source: "landing_page",
+    };
+
+    const { error } = await supabase.from("waitlist_entries").insert(payload);
       email: body.email,
       full_name: body.fullName || null,
       city: body.city || null,
