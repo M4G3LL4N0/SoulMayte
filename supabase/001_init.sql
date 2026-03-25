@@ -41,11 +41,16 @@ create table if not exists soulmayte.soulmate_readiness_quiz_submissions (
   attachment_style text not null,
   communication_style text not null,
   long_term_intent text not null,
+  -- Scores are percentages from 0 to 100
   self_awareness_score integer not null check (self_awareness_score between 0 and 100),
   emotional_availability_score integer not null check (emotional_availability_score between 0 and 100),
   values_alignment_score integer not null check (values_alignment_score between 0 and 100),
   notes text
 );
+
+-- Prevent duplicate quiz submissions from same email
+create unique index if not exists soulmayte_quiz_submissions_email_key
+  on soulmayte.soulmate_readiness_quiz_submissions (lower(email));
 
 create table if not exists soulmayte.profiles (
   id uuid references auth.users(id) on delete cascade primary key,
@@ -73,7 +78,7 @@ alter table soulmayte.soulmate_readiness_quiz_submissions enable row level secur
 alter table soulmayte.profiles enable row level security;
 alter table soulmayte.partner_profiles enable row level security;
 
--- Allow public signups for waitlist
+-- Allow public users to join waitlist
 drop policy if exists "public can insert waitlist entries" on soulmayte.waitlist_entries;
 create policy "public can insert waitlist entries"
 on soulmayte.waitlist_entries
@@ -89,7 +94,7 @@ to service_role
 using (true)
 with check (true);
 
--- Allow public quiz submissions
+-- Allow public users to submit quiz responses
 drop policy if exists "public can insert quiz submissions" on soulmayte.soulmate_readiness_quiz_submissions;
 create policy "public can insert quiz submissions"
 on soulmayte.soulmate_readiness_quiz_submissions
