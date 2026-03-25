@@ -44,12 +44,7 @@ create table if not exists soulmayte.soulmate_readiness_quiz_submissions (
   self_awareness_score integer not null check (self_awareness_score between 0 and 100),
   emotional_availability_score integer not null check (emotional_availability_score between 0 and 100),
   values_alignment_score integer not null check (values_alignment_score between 0 and 100),
-  notes text,
-  constraint valid_score_range check (
-    self_awareness_score between 0 and 100 and
-    emotional_availability_score between 0 and 100 and 
-    values_alignment_score between 0 and 100
-  )
+  notes text
 );
 
 create table if not exists soulmayte.profiles (
@@ -78,6 +73,7 @@ alter table soulmayte.soulmate_readiness_quiz_submissions enable row level secur
 alter table soulmayte.profiles enable row level security;
 alter table soulmayte.partner_profiles enable row level security;
 
+-- Allow public signups for waitlist
 drop policy if exists "public can insert waitlist entries" on soulmayte.waitlist_entries;
 create policy "public can insert waitlist entries"
 on soulmayte.waitlist_entries
@@ -93,6 +89,7 @@ to service_role
 using (true)
 with check (true);
 
+-- Allow public quiz submissions
 drop policy if exists "public can insert quiz submissions" on soulmayte.soulmate_readiness_quiz_submissions;
 create policy "public can insert quiz submissions"
 on soulmayte.soulmate_readiness_quiz_submissions
@@ -108,6 +105,7 @@ to service_role
 using (true)
 with check (true);
 
+-- Users can only access their own profile
 drop policy if exists "users can view own profile" on soulmayte.profiles;
 create policy "users can view own profile"
 on soulmayte.profiles
