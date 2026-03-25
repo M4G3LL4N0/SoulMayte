@@ -3,9 +3,13 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 export default async function DashboardPage() {
   const supabase = createServerSupabaseClient();
 
-  const { count } = await supabase
-    .from("waitlist_entries")
-    .select("*", { count: "exact", head: true });
+  const [
+    { count: waitlistCount },
+    { count: quizCount }
+  ] = await Promise.all([
+    supabase.from("waitlist_entries").select("*", { count: "exact", head: true }),
+    supabase.from("soulmate_readiness_quiz_submissions").select("*", { count: "exact", head: true })
+  ]);
 
   const { data: recent } = await supabase
     .from("waitlist_entries")
@@ -27,8 +31,16 @@ export default async function DashboardPage() {
         </div>
 
         <div className="mb-8 rounded-3xl border border-white/10 bg-white/5 p-6">
-          <p className="text-sm text-white/60">Total waitlist signups</p>
-          <p className="mt-2 text-5xl font-semibold">{count ?? 0}</p>
+          <div className="grid grid-cols-2 divide-x divide-white/10">
+            <div className="pr-4">
+              <p className="text-sm text-white/60">Waitlist Signups</p>
+              <p className="mt-2 text-5xl font-semibold">{waitlistCount ?? 0}</p>
+            </div>
+            <div className="pl-4">
+              <p className="text-sm text-white/60">Quiz Completions</p>
+              <p className="mt-2 text-5xl font-semibold">{quizCount ?? 0}</p>
+            </div>
+          </div>
         </div>
 
         <div className="overflow-hidden rounded-3xl border border-white/10 bg-white/5">

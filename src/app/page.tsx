@@ -62,6 +62,12 @@ export default function HomePage() {
             >
               Founder dashboard
             </Link>
+            <Link
+              href="/quiz"
+              className="rounded-2xl border border-pink-300/20 bg-pink-300/10 px-5 py-3 font-medium text-pink-300 transition hover:bg-pink-300/20"
+            >
+              Take the quiz
+            </Link>
           </div>
         </div>
       </section>
