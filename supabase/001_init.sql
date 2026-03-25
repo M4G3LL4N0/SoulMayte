@@ -1,42 +1,22 @@
-create schema if not exists soulmayte;
+create schema soulmayte;
+create extension pgcrypto;
 
-create extension if not exists pgcrypto;
+create type soulmayte.relationship_status as enum (
+  'single',
+  'talking',
+  'dating',
+  'situationship',
+  'relationship',
+  'complicated'
+);
 
-do $$
-begin
-  if not exists (
-    select 1
-    from pg_type t
-    join pg_namespace n on n.oid = t.typnamespace
-    where t.typname = 'relationship_status'
-      and n.nspname = 'soulmayte'
-  ) then
-    create type soulmayte.relationship_status as enum (
-      'single',
-      'talking',
-      'dating',
-      'situationship',
-      'relationship',
-      'complicated'
-    );
-  end if;
-
-  if not exists (
-    select 1
-    from pg_type t
-    join pg_namespace n on n.oid = t.typnamespace
-    where t.typname = 'looking_for_type'
-      and n.nspname = 'soulmayte'
-  ) then
-    create type soulmayte.looking_for_type as enum (
-      'soulmate',
-      'serious_relationship',
-      'dating',
-      'marriage',
-      'clarity'
-    );
-  end if;
-end $$;
+create type soulmayte.looking_for_type as enum (
+  'soulmate',
+  'serious_relationship',
+  'dating',
+  'marriage',
+  'clarity'
+);
 
 create table if not exists soulmayte.waitlist_entries (
   id uuid primary key default gen_random_uuid(),

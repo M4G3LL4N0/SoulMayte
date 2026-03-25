@@ -14,17 +14,26 @@ export async function POST(request: Request) {
 
     const supabase = createServerSupabaseClient();
 
-    const payload = {
-      email: String(body.email).trim().toLowerCase(),
-      full_name: body.fullName ? String(body.fullName).trim() : null,
-      city: body.city ? String(body.city).trim() : null,
-      state: body.state ? String(body.state).trim() : null,
-      relationship_status: body.relationshipStatus
-        ? String(body.relationshipStatus)
-        : null,
-      looking_for: body.lookingFor ? String(body.lookingFor) : null,
-      notes: body.notes ? String(body.notes).trim() : null,
-      source: "landing_page",
+    interface WaitlistPayload {
+      email: string;
+      full_name?: string | null;
+      city?: string | null;
+      state?: string | null;
+      relationship_status?: string | null;
+      looking_for?: string | null;
+      notes?: string | null;
+      source: string;
+    }
+
+    const payload: WaitlistPayload = {
+      email: body.email.trim().toLowerCase(),
+      full_name: body.fullName?.trim() || null,
+      city: body.city?.trim() || null,
+      state: body.state?.trim() || null,
+      relationship_status: body.relationshipStatus || null,
+      looking_for: body.lookingFor || null,
+      notes: body.notes?.trim() || null,
+      source: "landing_page"
     };
 
     const { error } = await supabase
