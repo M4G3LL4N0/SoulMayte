@@ -14,27 +14,22 @@ export async function POST(request: Request) {
 
     const supabase = createServerSupabaseClient();
 
-    const payload: Database["soulmayte"]["Tables"]["waitlist_entries"]["Insert"] = {
-      email: body.email,
-      full_name: body.fullName || null,
-      city: body.city || null,
-      state: body.state || null,
-      relationship_status: body.relationshipStatus || null,
-      looking_for: body.lookingFor || null,
-      notes: body.notes || null,
+    const payload = {
+      email: String(body.email).trim().toLowerCase(),
+      full_name: body.fullName ? String(body.fullName).trim() : null,
+      city: body.city ? String(body.city).trim() : null,
+      state: body.state ? String(body.state).trim() : null,
+      relationship_status: body.relationshipStatus
+        ? String(body.relationshipStatus)
+        : null,
+      looking_for: body.lookingFor ? String(body.lookingFor) : null,
+      notes: body.notes ? String(body.notes).trim() : null,
       source: "landing_page",
     };
 
-    const { error } = await supabase.from("waitlist_entries").insert(payload);
-      email: body.email,
-      full_name: body.fullName || null,
-      city: body.city || null,
-      state: body.state || null,
-      relationship_status: body.relationshipStatus || null,
-      looking_for: body.lookingFor || null,
-      notes: body.notes || null,
-      source: "landing_page",
-    });
+    const { error } = await supabase
+      .from("waitlist_entries")
+      .insert(payload as never);
 
     if (error) {
       if (error.code === "23505") {
