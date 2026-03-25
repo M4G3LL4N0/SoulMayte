@@ -37,14 +37,19 @@ create unique index if not exists soulmayte_waitlist_entries_email_key
 create table if not exists soulmayte.soulmate_readiness_quiz_submissions (
   id uuid primary key default gen_random_uuid(),
   created_at timestamptz not null default now(),
-  email text,
-  attachment_style text,
-  communication_style text,
-  long_term_intent text,
-  self_awareness_score integer check (self_awareness_score between 0 and 100),
-  emotional_availability_score integer check (emotional_availability_score between 0 and 100),
-  values_alignment_score integer check (values_alignment_score between 0 and 100),
-  notes text
+  email text not null,
+  attachment_style text not null,
+  communication_style text not null,
+  long_term_intent text not null,
+  self_awareness_score integer not null check (self_awareness_score between 0 and 100),
+  emotional_availability_score integer not null check (emotional_availability_score between 0 and 100),
+  values_alignment_score integer not null check (values_alignment_score between 0 and 100),
+  notes text,
+  constraint valid_score_range check (
+    self_awareness_score between 0 and 100 and
+    emotional_availability_score between 0 and 100 and 
+    values_alignment_score between 0 and 100
+  )
 );
 
 create table if not exists soulmayte.profiles (
@@ -67,8 +72,9 @@ create table if not exists soulmayte.partner_profiles (
   relationship_stage text
 );
 
+-- Enable Row Level Security for all tables
 alter table soulmayte.waitlist_entries enable row level security;
-alter table soulmayte.soulmate_readiness_quiz_submissions enable row level security;
+alter table soulmayte.soulmate_readiness_quiz_submissions enable row level security; 
 alter table soulmayte.profiles enable row level security;
 alter table soulmayte.partner_profiles enable row level security;
 
