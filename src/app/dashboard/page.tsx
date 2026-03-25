@@ -1,6 +1,23 @@
+import { env, isValidSupabaseConfig } from "@/lib/env";
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 
+export const dynamic = 'force-dynamic';
+
 export default async function DashboardPage() {
+  if (!isValidSupabaseConfig()) {
+    return (
+      <main className="min-h-screen bg-[#050816] px-6 py-12 text-white">
+        <div className="mx-auto max-w-6xl">
+          <div className="mb-10">
+            <h1 className="text-4xl font-semibold tracking-tight">SoulMayte Dashboard</h1>
+            <p className="mt-3 text-white/65">
+              Dashboard is not available - missing or invalid Supabase configuration.
+            </p>
+          </div>
+        </div>
+      </main>
+    );
+  }
   const supabase = createServerSupabaseClient();
 
   const { count } = await supabase
