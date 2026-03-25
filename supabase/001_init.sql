@@ -105,4 +105,60 @@ with check (true);
 grant usage on schema soulmayte to anon, authenticated, service_role;
 grant all on all tables in schema soulmayte to anon, authenticated, service_role;
 grant all on all sequences in schema soulmayte to anon, authenticated, service_role;
+create table if not exists soulmayte.profiles (
+  id uuid references auth.users(id) on delete cascade primary key,
+  created_at timestamptz not null default now(),
+  email text not null unique,
+  full_name text,
+  city text,
+  state text,
+  bio text,
+  dating_intention text
+);
+
+create table if not exists soulmayte.partner_profiles (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  owner_user_id uuid not null references auth.users(id) on delete cascade,
+  partner_name text not null,
+  notes text,
+  relationship_stage text
+);
+
+alter table soulmayte.profiles enable row level security;
+alter table soulmayte.partner_profiles enable row level security;
+
+-- Profile read/write for owner only
+create policy "users can view/edit their own profile"
+on soulmayte.profiles
+for all
+to authenticated
+using (auth.uid() = id)
+with check (auth.uid() = id);
+
+-- Partner profiles owner access
+create policy "users can view their own partner profiles"
+on soulmayte.partner_profiles
+for select
+to authenticated
+using (auth.uid() = owner_user_id);
+
+create policy "users can create partner profiles"
+on soulmayte.partner_profiles
+for insert
+to authenticated
+with check (auth.uid() = owner_user_id);
+
+create policy "users can update their own partner profiles"
+on soulmayte.partner_profiles
+for update
+to authenticated
+using (auth.uid() = owner_user_id);
+
+create policy "users can delete their own partner profiles"
+on soulmayte.partner_profiles
+for delete
+to authenticated
+using (auth.uid() = owner_user_id);
+
 grant all on all routines in schema soulmayte to anon, authenticated, service_role;

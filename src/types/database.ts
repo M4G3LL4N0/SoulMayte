@@ -106,5 +106,63 @@ export interface Database {
         | "clarity";
     };
     CompositeTypes: Record<string, never>;
+    Profiles: {
+      Row: {
+        id: string;
+        created_at: string;
+        email: string;
+        full_name: string | null;
+        city: string | null;
+        state: string | null;
+        bio: string | null;
+        dating_intention: string | null;
+      };
+      Insert: {
+        id: string;
+        created_at?: string;
+        email: string;
+        full_name?: string | null;
+        city?: string | null;
+        state?: string | null;
+        bio?: string | null;
+        dating_intention?: string | null;
+      };
+      Update: {
+        id?: string;
+        created_at?: string;
+        email?: string;
+        full_name?: string | null;
+        city?: string | null;
+        state?: string | null;
+        bio?: string | null;
+        dating_intention?: string | null;
+      };
+    };
+    PartnerProfiles: {
+      Row: {
+        id: string;
+        created_at: string;
+        owner_user_id: string;
+        partner_name: string;
+        notes: string | null;
+        relationship_stage: string | null;
+      };
+      Insert: {
+        id?: string;
+        created_at?: string;
+        owner_user_id: string;
+        partner_name: string;
+        notes?: string | null;
+        relationship_stage?: string | null;
+      };
+      Update: {
+        id?: string;
+        created_at?: string;
+        owner_user_id?: string;
+        partner_name?: string;
+        notes?: string | null;
+        relationship_stage?: string | null;
+      };
+    };
   };
 }
