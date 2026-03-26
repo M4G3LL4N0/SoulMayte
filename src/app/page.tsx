@@ -68,6 +68,12 @@ export default function HomePage() {
             >
               Take the quiz
             </Link>
+            <Link
+              href="/analyze"
+              className="rounded-2xl border border-purple-300/20 bg-purple-300/10 px-5 py-3 font-medium text-purple-300 transition hover:bg-purple-300/20"
+            >
+              Analyze connection
+            </Link>
           </div>
         </div>
       </section>

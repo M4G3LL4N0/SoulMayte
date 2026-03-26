@@ -72,6 +72,39 @@ create table if not exists soulmayte.partner_profiles (
   relationship_stage text
 );
 
+create table if not exists soulmayte.analysis_reports (
+  id uuid primary key default gen_random_uuid(),
+  created_at timestamptz not null default now(),
+  email text,
+  input_text text not null,
+  compatibility_score integer check (compatibility_score between 0 and 100),
+  risk_level text check (risk_level in ('low', 'moderate', 'high')),
+  green_flags jsonb,
+  red_flags jsonb,
+  summary text,
+  raw_ai_output jsonb
+);
+
+-- Enable RLS for analysis reports
+alter table soulmayte.analysis_reports enable row level security;
+
+-- Allow public users to create reports
+drop policy if exists "public can insert analysis reports" on soulmayte.analysis_reports;
+create policy "public can insert analysis reports"
+on soulmayte.analysis_reports
+for insert
+to anon, authenticated
+with check (true);
+
+-- Service role has full access
+drop policy if exists "service role full access analysis reports" on soulmayte.analysis_reports;
+create policy "service role full access analysis reports"
+on soulmayte.analysis_reports
+for all
+to service_role
+using (true)
+with check (true);
+
 -- Enable Row Level Security for all tables
 alter table soulmayte.waitlist_entries enable row level security;
 alter table soulmayte.soulmate_readiness_quiz_submissions enable row level security; 
