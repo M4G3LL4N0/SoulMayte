@@ -74,6 +74,18 @@ export default function HomePage() {
             >
               Analyze connection
             </Link>
+            <Link
+              href="/reports"
+              className="rounded-2xl border border-blue-300/20 bg-blue-300/10 px-5 py-3 font-medium text-blue-300 transition hover:bg-blue-300/20"
+            >
+              My Reports
+            </Link>
+            <Link
+              href="/pricing"
+              className="rounded-2xl border border-green-300/20 bg-green-300/10 px-5 py-3 font-medium text-green-300 transition hover:bg-green-300/20"
+            >
+              Pricing
+            </Link>
           </div>
         </div>
       </section>
