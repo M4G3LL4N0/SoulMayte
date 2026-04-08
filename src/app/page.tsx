@@ -53,6 +53,10 @@ export default function HomePage() {
             <a
               href="#waitlist"
               className="rounded-2xl bg-white px-5 py-3 font-medium text-black transition hover:bg-white/90"
+              onClick={(e) => {
+                e.preventDefault();
+                document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+              }}
             >
               Join the waitlist
             </a>
