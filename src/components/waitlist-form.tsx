@@ -65,7 +65,7 @@ export function WaitlistForm() {
     >
       <div className="grid gap-4 md:grid-cols-2">
         <input
-          className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none placeholder:text-white/35"
+          className="rounded-2xl border border-white/10 bg-black/30 px-4 py-3 text-white outline-none placeholder:text-white/35 transition focus:border-pink-400/30 focus:ring-1 focus:ring-pink-400/20"
           placeholder="Full name"
           value={form.fullName}
           onChange={(e) => update("fullName", e.target.value)}
@@ -139,7 +139,15 @@ export function WaitlistForm() {
         {loading ? "Submitting..." : "Join the waitlist"}
       </button>
 
-      {message ? <p className="text-sm text-white/80">{message}</p> : null}
+      {message ? (
+        <p className={`text-sm ${
+          message.includes("Something went wrong") || message.includes("already") 
+            ? "text-red-400" 
+            : "text-green-400"
+        }`}>
+          {message}
+        </p>
+      ) : null}
     </form>
   );
 }

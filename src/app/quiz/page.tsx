@@ -38,6 +38,9 @@ export default async function QuizPage() {
             <QuizForm />
           ) : (
             <div className="space-y-4 text-center">
+              <div className="flex justify-center">
+                <div className="h-8 w-8 animate-spin rounded-full border-4 border-pink-300 border-t-transparent" />
+              </div>
               <h3 className="text-lg font-medium text-pink-300">
                 Loading Quiz...
               </h3>

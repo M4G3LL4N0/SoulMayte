@@ -164,30 +164,6 @@ export interface Database {
       Insert: {
         id?: string;
         created_at?: string;
-        email?: string | null;
-        input_text: string;
-        compatibility_score?: number | null;
-        risk_level?: string | null;
-        green_flags?: Json | null;
-        red_flags?: Json | null;
-        summary?: string | null;
-        raw_ai_output?: Json | null;
-      };
-      Update: {
-        id?: string;
-        created_at?: string;
-        email?: string | null;
-        input_text?: string;
-        compatibility_score?: number | null;
-        risk_level?: string | null;
-        green_flags?: Json | null;
-        red_flags?: Json | null;
-        summary?: string | null;
-        raw_ai_output?: Json | null;
-      };
-      Insert: {
-        id?: string;
-        created_at?: string;
         owner_user_id: string;
         partner_name: string;
         notes?: string | null;

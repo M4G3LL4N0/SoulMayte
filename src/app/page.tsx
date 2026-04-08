@@ -52,13 +52,14 @@ export default function HomePage() {
           <div className="mt-8 flex flex-wrap gap-4">
             <a
               href="#waitlist"
-              className="rounded-2xl bg-white px-5 py-3 font-medium text-black transition hover:opacity-90"
+              className="rounded-2xl bg-white px-5 py-3 font-medium text-black transition hover:bg-white/90"
             >
               Join the waitlist
             </a>
             <Link
               href="/dashboard"
-              className="rounded-2xl border border-white/15 bg-white/5 px-5 py-3 font-medium text-white transition hover:bg-white/10"
+              className="rounded-2xl border border-orange-300/20 bg-orange-300/10 px-5 py-3 font-medium text-orange-300 transition hover:bg-orange-300/20"
+              title="Founder dashboard"
             >
               Founder dashboard
             </Link>
