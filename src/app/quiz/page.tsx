@@ -4,15 +4,15 @@ import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { Metadata } from "next";
 import Link from "next/link";
 import { QuizForm } from "@/components/quiz-form";
-import { hasValidSupabaseEnv } from "@/lib/env";
+import { assertEnv } from "@/lib/env";
 
 export const metadata: Metadata = {
   title: "Soulmate Readiness Quiz | SoulMayte",
 };
 
 export default async function QuizPage() {
-  const hasValidEnv = hasValidSupabaseEnv();
-  const supabase = hasValidEnv ? createServerSupabaseClient() : null;
+  let hasValidEnv = true;
+  const supabase = createServerSupabaseClient();
 
   return (
     <main className="min-h-screen bg-[#050816] px-6 py-12 text-white">
