@@ -1,4 +1,7 @@
+'use client';
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Heart, Radar, ShieldCheck, Sparkles } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
@@ -53,9 +56,11 @@ export default function HomePage() {
             <a
               href="#waitlist"
               className="rounded-2xl bg-white px-5 py-3 font-medium text-black transition hover:bg-white/90"
-              onClick={(e) => {
-                e.preventDefault();
-                document.getElementById('waitlist')?.scrollIntoView({ behavior: 'smooth' });
+              onClick={() => {
+                const waitlist = document.getElementById('waitlist');
+                if (waitlist) {
+                  waitlist.scrollIntoView({ behavior: 'smooth' });
+                }
               }}
             >
               Join the waitlist
