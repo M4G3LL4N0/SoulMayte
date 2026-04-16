@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function PricingPage() {
   return (
     <main className="min-h-screen bg-[#04050b] text-white px-6 py-14">
