@@ -11,25 +11,24 @@
 html,body{max-width:100%;overflow-x:hidden}
 h1,h2,p,li,a{overflow-wrap:anywhere}
 
-body { margin:0; background:#f4efe6; color:#1c1915; font:18px/1.35 "Trebuchet MS", sans-serif; }
-header { display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; padding:18px 22px; background:#1c1915; color:#f4efe6; }
-.ch { display:grid; grid-template-columns:72px minmax(0,1fr); gap:12px; padding:28px 22px; border-bottom:1px solid #1c1915; }
-b { color:#9a3412; font-size:22px; }
-h1 { margin:0; font-size:clamp(32px, 4vw, 52px); line-height:1; }
-.cta { color:#f4efe6; background:#9a3412; text-decoration:none; padding:12px 14px; display:inline-block; }
-#scope { padding:22px; }
-@media (max-width:600px) { .ch { grid-template-columns:1fr; } }
+body { margin:0; background:#f3e8ff; color:#1a1024; font:20px/1.4 "Avenir Next", "Segoe UI", sans-serif; }
+.poster { min-height:100vh; display:flex; flex-direction:column; justify-content:flex-end; padding:28px; box-sizing:border-box; }
+.mark { letter-spacing:.22em; text-transform:uppercase; font-size:12px; color:#d8b4fe; }
+h1 { font-size:clamp(46px, 8vw, 92px); line-height:.9; max-width:14ch; margin:12px 0; }
+.poster p:last-of-type { max-width:36rem; color:#1a1024; }
+.cta { align-self:flex-start; color:#f3e8ff; background:#d8b4fe; text-decoration:none; padding:14px 18px; margin:18px 0 8px; }
+#scope { background:#1a1024; color:#f3e8ff; padding:28px; }
 
 </style>
 </head>
 <body>
 
-<main class="chapters">
-  <header><span>SoulMayte</span><span>Lab</span></header>
-  <section class="ch"><b>01</b><h1>Know if they’re your person.</h1></section>
-  <section class="ch"><b>02</b><p>SoulMayte helps people find, evaluate, and understand real romantic compatibility so they stop guessing and start choosing better.</p></section>
-  <section class="ch"><b>03</b><a class="cta" href="#scope">Read what is withheld</a></section>
+<main class="poster">
+  <p class="mark">SoulMayte · Lab</p>
+  <h1>Know if they’re your person.</h1>
+  <p>SoulMayte helps people find, evaluate, and understand real romantic compatibility so they stop guessing and start choosing better.</p>
+  <a class="cta" href="#scope">See the boundary</a>
 </main>
-<section id="scope"><ul><li>The page describes the current work. It does not invent customers.</li><li>A live signup, price, or metric appears here only when the product has one.</li><li>Maturity on this page is a label, not a launch claim.</li></ul></section>
+<section id="scope"><h2>Boundary</h2><ol><li>The page describes the current work. It does not invent customers.</li><li>A live signup, price, or metric appears here only when the product has one.</li><li>Maturity on this page is a label, not a launch claim.</li></ol></section>
 </body>
 </html>
