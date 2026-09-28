@@ -1,11 +1,9 @@
-'use client';
-
 import Link from "next/link";
-import { useRouter } from "next/navigation";
 import { Heart, Radar, ShieldCheck, Sparkles } from "lucide-react";
 import { SiteHeader } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { WaitlistForm } from "@/components/waitlist-form";
+import { ProductHonestyNote } from "@/components/ProductHonestyNote";
 
 const features = [
   {
@@ -36,10 +34,10 @@ const features = [
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-[radial-gradient(circle_at_top,rgba(236,72,153,0.18),transparent_28%),radial-gradient(circle_at_20%_20%,rgba(168,85,247,0.18),transparent_24%),#04050b] text-white">
+    <div className="min-h-screen bg-[#120814] text-white">
       <SiteHeader />
 
-      <section className="mx-auto max-w-7xl px-6 pb-20 pt-16 md:pb-28 md:pt-24">
+      <section className="mx-auto max-w-7xl px-4 pb-20 pt-16 sm:px-6 md:pb-28 md:pt-24 lg:px-8">
         <div className="max-w-4xl">
           <p className="mb-5 text-xs uppercase tracking-[0.35em] text-pink-300">
             Relationship certainty engine
@@ -56,22 +54,9 @@ export default function HomePage() {
             <a
               href="#waitlist"
               className="rounded-2xl bg-white px-5 py-3 font-medium text-black transition hover:bg-white/90"
-              onClick={() => {
-                const waitlist = document.getElementById('waitlist');
-                if (waitlist) {
-                  waitlist.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
             >
               Join the waitlist
             </a>
-            <Link
-              href="/dashboard"
-              className="rounded-2xl border border-orange-300/20 bg-orange-300/10 px-5 py-3 font-medium text-orange-300 transition hover:bg-orange-300/20"
-              title="Founder dashboard"
-            >
-              Founder dashboard
-            </Link>
             <Link
               href="/quiz"
               className="rounded-2xl border border-pink-300/20 bg-pink-300/10 px-5 py-3 font-medium text-pink-300 transition hover:bg-pink-300/20"
@@ -100,7 +85,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section id="features" className="mx-auto grid max-w-7xl gap-6 px-6 pb-20 md:grid-cols-2 xl:grid-cols-4">
+      <section id="features" className="mx-auto grid max-w-7xl gap-6 px-4 pb-20 sm:px-6 md:grid-cols-2 lg:px-8 xl:grid-cols-4">
         {features.map((feature) => {
           const Icon = feature.icon;
           return (
@@ -120,7 +105,7 @@ export default function HomePage() {
         })}
       </section>
 
-      <section id="how-it-works" className="mx-auto max-w-7xl px-6 pb-20">
+      <section id="how-it-works" className="mx-auto max-w-7xl px-4 pb-20 sm:px-6 lg:px-8">
         <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 md:p-10">
           <p className="text-xs uppercase tracking-[0.3em] text-pink-300">
             How it works
@@ -163,8 +148,8 @@ export default function HomePage() {
             Join the SoulMayte waitlist
           </h2>
           <p className="mt-4 text-white/65">
-            Launch the brand, capture demand, and validate the soulmate
-            intelligence category immediately.
+            Get notified as compatibility tools, pair reports, and guided insights
+            come online. This list is demand capture, not a live user count.
           </p>
         </div>
 
@@ -172,6 +157,7 @@ export default function HomePage() {
       </section>
 
       <SiteFooter />
-    </main>
+      <ProductHonestyNote status="demo" />
+    </div>
   );
 }
